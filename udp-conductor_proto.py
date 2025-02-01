@@ -91,9 +91,8 @@ class Dispositivo(DatagramProtocol):
         if cuenta in self._dispReg:
             if self._dispReg[cuenta]["secuencia"] == int(secuencia):
                 if self._colaMensajes:
-                    self._colaMensajes.pop()#elimina el mensaje ya que secuencia coincide, corregir para multiples envios concurrentes
-
-                self._aumentaSecuencia(cuenta)
+                    self._colaMensajes.pop(0)#elimina el mensaje ya que secuencia coincide, corregir para multiples envios concurrentes
+                    self._aumentaSecuencia(cuenta)
 
     def agregarMensaje(self, cuenta, mensaje):
         if cuenta in self._dispReg:
